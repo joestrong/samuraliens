@@ -4,16 +4,19 @@
   "description": "Samuraliens",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack",
-    "start": "npm run build && webpack-dev-server --port=8000"
+    "build": "yarn run test && webpack",
+    "start": "yarn run build && webpack-dev-server --port=8000",
+    "test": "standard ./src/*",
+    "fix": "standard --fix ./src/*"
   },
   "author": "Joe Strong <joe@joestrong.co.uk>",
   "devDependencies": {
-    "webpack-dev-server": "^2.11.0",
+    "raw-loader": "^0.5.1",
     "webpack": "^3.4.1",
-    "raw-loader": "^0.5.1"
+    "webpack-dev-server": "^2.11.0"
   },
   "dependencies": {
-    "phaser": "^3.3.0"
+    "phaser": "^3.3.0",
+    "standard": "^12.0.1"
   }
 }
