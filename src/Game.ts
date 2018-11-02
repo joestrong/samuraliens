@@ -1,7 +1,9 @@
-import Phaser from 'phaser'
-import Title from './Scenes/Title'
+import * as Phaser from 'phaser'
+import Title from './Scenes/Title.ts'
 
 export default class Game {
+  game: Phaser.Game
+
   constructor () {
     const config = {
       type: Phaser.AUTO,
