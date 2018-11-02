@@ -6,8 +6,8 @@
   "scripts": {
     "build": "yarn run test && webpack",
     "start": "yarn run build && webpack-dev-server --port=8000",
-    "test": "standard ./src/*",
-    "fix": "standard --fix ./src/*"
+    "test": "standard ./src/**/*",
+    "fix": "standard --fix ./src/**/*"
   },
   "author": "Joe Strong <joe@joestrong.co.uk>",
   "devDependencies": {
