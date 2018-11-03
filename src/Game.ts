@@ -13,7 +13,7 @@ export default class Game {
         default: 'arcade',
         arcade: {
           gravity: { y: 300 },
-          debug: false
+          debug: true
         }
       },
       scene: [
