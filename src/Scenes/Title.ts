@@ -13,20 +13,48 @@ export default class Title extends Phaser.Scene {
   public create() {
     this.add.image(400, 300, "background")
 
-    this.player = new Player(this, 100, 450)
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      key: "left",
+      repeat: -1,
+    })
+    this.anims.create({
+      frameRate: 2,
+      frames: [{ key: "dude", frame: 4 }],
+      key: "turn",
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      key: "right",
+      repeat: -1,
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      key: "attack",
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 8 }),
+      key: "hit",
+    })
+
+    this.player = new Player(this, 152, 292)
     this.add.existing(this.player)
 
     const platforms = this.physics.add.staticGroup()
-    const zone = this.add.zone(400, 500, 800, 30)
+    const zone = this.add.zone(400, 340, 800, 30)
     platforms.add(zone)
 
     const enemies = this.add.group()
-    const enemy = new Enemy(this, 300, 450)
+    const enemy = new Enemy(this, 600, 292)
     enemies.add(enemy)
     this.add.existing(enemy)
 
     this.physics.add.collider(this.player, platforms)
     this.physics.add.collider(enemies, platforms)
-    this.physics.add.collider(this.player.attackZones, enemies)
+    this.physics.add.overlap(this.player.attackZones, enemies, this.player.onAttackZoneOverlap, null, this.player)
   }
 }

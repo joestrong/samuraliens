@@ -1,9 +1,11 @@
 import * as Phaser from "phaser"
 import ComplexObject from "./ComplexObject.ts"
+import Enemy from "./Enemy.ts"
 import Sprite = Phaser.GameObjects.Sprite
 import STATIC_BODY = Phaser.Physics.Arcade.STATIC_BODY
 import DYNAMIC_BODY = Phaser.Physics.Arcade.DYNAMIC_BODY
 import Zone = Phaser.GameObjects.Zone
+import GameObject = Phaser.GameObjects.GameObject
 
 export default class Player extends ComplexObject {
   public body: Phaser.Physics.Arcade.Body
@@ -24,29 +26,6 @@ export default class Player extends ComplexObject {
     this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
 
-    scene.anims.create({
-      frameRate: 20,
-      frames: scene.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
-      key: "left",
-      repeat: -1,
-    })
-    scene.anims.create({
-      frameRate: 2,
-      frames: [{ key: "dude", frame: 4 }],
-      key: "turn",
-    })
-    scene.anims.create({
-      frameRate: 20,
-      frames: scene.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
-      key: "right",
-      repeat: -1,
-    })
-    scene.anims.create({
-      frameRate: 20,
-      frames: scene.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
-      key: "attack",
-    })
-
     const attackZone = new Zone(scene, 26, 0, 20, 48)
     this.attackZones.add(attackZone)
     this.add(attackZone)
@@ -57,7 +36,7 @@ export default class Player extends ComplexObject {
     this.body.setCollideWorldBounds(true)
   }
 
-  public preUpdate() {
+  public preUpdate(): void {
     if (this.cursors.space.isDown && !this.isAttacking) {
       this.sprite.anims.play("attack", true)
       this.body.setVelocityX(0)
@@ -82,7 +61,13 @@ export default class Player extends ComplexObject {
     }
   }
 
-  protected onAnimationComplete(animation, frame) {
+  public onAttackZoneOverlap(enemy: Enemy, attackZone: Zone): void {
+    if (this.isAttacking && enemy.isHit() === false) {
+      enemy.hit()
+    }
+  }
+
+  protected onAnimationComplete(animation, frame): void {
     if (animation.key === "attack") {
       this.isAttacking = false
     }

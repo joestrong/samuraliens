@@ -5,16 +5,34 @@ import Sprite = Phaser.GameObjects.Sprite
 export default class Player extends ComplexObject {
   public body: Phaser.Physics.Arcade.Body
   protected sprite: Phaser.GameObjects.Sprite
+  protected _hit: boolean = false
 
   public constructor(scene, x, y) {
     super(scene, x, y)
 
-    this.sprite = new Sprite(scene, 0, 0, "dude")
+    this.sprite = scene.add.sprite(0, 0, "dude")
+    this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
 
     this.setSize(32, 48)
     scene.physics.world.enableBody(this)
     this.body.setBounce(0.2, 0.2)
     this.body.setCollideWorldBounds(true)
+  }
+
+  public isHit(): boolean {
+    return this._hit
+  }
+
+  public hit(): void {
+    this._hit = true
+    this.body.setVelocityY(-330)
+    this.sprite.anims.play("hit")
+  }
+
+  protected onAnimationComplete(animation, frame): void {
+    if (animation.key === "hit") {
+      this._hit = false
+    }
   }
 }
