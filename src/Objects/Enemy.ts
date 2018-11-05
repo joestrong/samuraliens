@@ -5,7 +5,7 @@ import Sprite = Phaser.GameObjects.Sprite
 export default class Player extends ComplexObject {
   public body: Phaser.Physics.Arcade.Body
   protected sprite: Phaser.GameObjects.Sprite
-  protected _hit: boolean = false
+  protected beenHit: boolean = false
 
   public constructor(scene, x, y) {
     super(scene, x, y)
@@ -21,18 +21,18 @@ export default class Player extends ComplexObject {
   }
 
   public isHit(): boolean {
-    return this._hit
+    return this.beenHit
   }
 
   public hit(): void {
-    this._hit = true
+    this.beenHit = true
     this.body.setVelocityY(-330)
     this.sprite.anims.play("hit")
   }
 
   protected onAnimationComplete(animation, frame): void {
     if (animation.key === "hit") {
-      this._hit = false
+      this.beenHit = false
     }
   }
 }
