@@ -11,6 +11,8 @@
   },
   "author": "Joe Strong <joe@joestrong.co.uk>",
   "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/node": "^10.12.2",
     "raw-loader": "^0.5.1",
     "ts-loader": "^5.3.0",
     "tslint": "^5.11.0",
@@ -20,6 +22,7 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "dotenv": "^6.1.0",
     "phaser": "^3.3.0"
   }
 }

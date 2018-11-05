@@ -13,7 +13,7 @@ export default class Game {
         default: 'arcade',
         arcade: {
           gravity: { y: 300 },
-          debug: true
+          debug: process.env.PHASER_DEBUG
         }
       },
       scene: [
