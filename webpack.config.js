@@ -11,6 +11,7 @@ module.exports = {
         publicPath: '/build/',
         filename: 'project.bundle.js'
     },
+    mode: 'development',
     module: {
         rules: [
           {
@@ -23,6 +24,9 @@ module.exports = {
             use: 'raw-loader'
           }
         ]
+    },
+    performance: {
+      hints: false
     },
     plugins: [
         new webpack.DefinePlugin({
