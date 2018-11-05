@@ -20,12 +20,12 @@ export default class Player extends ComplexObject {
     this.attackZones = new Phaser.Physics.Arcade.Group(scene.physics.world, scene)
     this.attackZones.defaults.setAllowGravity = false
 
-    this.sprite = new Sprite(scene, 0, 0, "dude")
+    this.sprite = scene.add.sprite(0, 0, "dude")
     this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
 
     scene.anims.create({
-      frameRate: 2,
+      frameRate: 20,
       frames: scene.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
       key: "left",
       repeat: -1,
@@ -36,13 +36,13 @@ export default class Player extends ComplexObject {
       key: "turn",
     })
     scene.anims.create({
-      frameRate: 2,
+      frameRate: 20,
       frames: scene.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
       key: "right",
       repeat: -1,
     })
     scene.anims.create({
-      frameRate: 2,
+      frameRate: 20,
       frames: scene.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
       key: "attack",
     })
@@ -60,6 +60,7 @@ export default class Player extends ComplexObject {
   public preUpdate() {
     if (this.cursors.space.isDown && !this.isAttacking) {
       this.sprite.anims.play("attack", true)
+      this.body.setVelocityX(0)
       this.isAttacking = true
     }
 
