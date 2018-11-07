@@ -7,7 +7,7 @@ export default class Title extends Phaser.Scene {
 
   public preload() {
     this.load.image("background", "assets/background.png")
-    this.load.spritesheet("dude", "assets/dude.png", { frameWidth: 32, frameHeight: 48 })
+    this.load.spritesheet("samurai", "assets/samurai.png", { frameWidth: 64, frameHeight: 64 })
   }
 
   public create() {
@@ -15,29 +15,29 @@ export default class Title extends Phaser.Scene {
 
     this.anims.create({
       frameRate: 20,
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
-      key: "left",
-      repeat: -1,
-    })
-    this.anims.create({
-      frameRate: 2,
-      frames: [{ key: "dude", frame: 4 }],
-      key: "turn",
-    })
-    this.anims.create({
-      frameRate: 20,
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("samurai", { start: 0, end: 5 }),
       key: "right",
       repeat: -1,
     })
     this.anims.create({
       frameRate: 20,
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("samurai", { start: 5, end: 5 }),
+      key: "turn",
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("samurai", { start: 6, end: 11 }),
+      key: "left",
+      repeat: -1,
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("samurai", { start: 0, end: 5 }),
       key: "attack",
     })
     this.anims.create({
       frameRate: 20,
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 8 }),
+      frames: this.anims.generateFrameNumbers("samurai", { start: 6, end: 11 }),
       key: "hit",
     })
 

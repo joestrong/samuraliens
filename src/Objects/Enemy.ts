@@ -10,7 +10,7 @@ export default class Player extends ComplexObject {
   public constructor(scene, x, y) {
     super(scene, x, y)
 
-    this.sprite = scene.add.sprite(0, 0, "dude")
+    this.sprite = scene.add.sprite(0, 0, "samurai")
     this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
 

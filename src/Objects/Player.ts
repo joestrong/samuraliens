@@ -22,7 +22,7 @@ export default class Player extends ComplexObject {
     this.attackZones = new Phaser.Physics.Arcade.Group(scene.physics.world, scene)
     this.attackZones.defaults.setAllowGravity = false
 
-    this.sprite = scene.add.sprite(0, 0, "dude")
+    this.sprite = scene.add.sprite(0, 0, "samurai")
     this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
 
