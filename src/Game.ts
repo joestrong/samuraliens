@@ -1,24 +1,24 @@
-import * as Phaser from 'phaser'
-import Title from './Scenes/Title.ts'
+import * as Phaser from "phaser"
+import Title from "./Scenes/Title.ts"
 
 export default class Game {
-  game: Phaser.Game
+  public game: Phaser.Game
 
-  constructor () {
+  constructor() {
     const config = {
       type: Phaser.AUTO,
       width: 800,
       height: 600,
       physics: {
-        default: 'arcade',
+        default: "arcade",
         arcade: {
           gravity: { y: 300 },
-          debug: true
-        }
+          debug: true,
+        },
       },
       scene: [
-        Title
-      ]
+        Title,
+      ],
     }
     this.game = new Phaser.Game(config) // eslint-disable-line no-new
   }

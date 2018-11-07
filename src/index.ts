@@ -1,3 +1,4 @@
-import Game from './Game.ts'
+import Game from "./Game.ts"
 
-new Game() // eslint-disable-line no-new
+// tslint:disable-next-line: no-unused-expression
+new Game()
