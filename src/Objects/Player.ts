@@ -1,11 +1,7 @@
 import * as Phaser from "phaser"
 import ComplexObject from "./ComplexObject.ts"
 import Enemy from "./Enemy.ts"
-import Sprite = Phaser.GameObjects.Sprite
-import STATIC_BODY = Phaser.Physics.Arcade.STATIC_BODY
-import DYNAMIC_BODY = Phaser.Physics.Arcade.DYNAMIC_BODY
 import Zone = Phaser.GameObjects.Zone
-import GameObject = Phaser.GameObjects.GameObject
 
 export default class Player extends ComplexObject {
   public body: Phaser.Physics.Arcade.Body
