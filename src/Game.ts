@@ -20,6 +20,6 @@ export default class Game {
         Title,
       ],
     }
-    this.game = new Phaser.Game(config) // eslint-disable-line no-new
+    this.game = new Phaser.Game(config)
   }
 }
