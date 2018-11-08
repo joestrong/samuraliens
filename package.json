@@ -6,8 +6,8 @@
   "scripts": {
     "build": "yarn test && webpack",
     "start": "yarn build && webpack-dev-server --port=8000",
-    "test": "tslint -c tslint.json ./src/**/*.ts",
-    "fix": "tslint -c tslint.json --fix ./src/**/*.ts"
+    "test": "tslint -c tslint.json 'src/**/*.ts'",
+    "fix": "tslint -c tslint.json --fix 'src/**/*.ts'"
   },
   "author": "Joe Strong <joe@joestrong.co.uk>",
   "devDependencies": {

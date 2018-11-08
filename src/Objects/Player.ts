@@ -1,11 +1,7 @@
 import * as Phaser from "phaser"
 import ComplexObject from "./ComplexObject.ts"
 import Enemy from "./Enemy.ts"
-import Sprite = Phaser.GameObjects.Sprite
-import STATIC_BODY = Phaser.Physics.Arcade.STATIC_BODY
-import DYNAMIC_BODY = Phaser.Physics.Arcade.DYNAMIC_BODY
 import Zone = Phaser.GameObjects.Zone
-import GameObject = Phaser.GameObjects.GameObject
 
 export default class Player extends ComplexObject {
   public body: Phaser.Physics.Arcade.Body
@@ -13,6 +9,8 @@ export default class Player extends ComplexObject {
   protected cursors: Phaser.Input.Keyboard.CursorKeys
   protected sprite: Phaser.GameObjects.Sprite
   protected isAttacking: boolean = false
+  protected moveSpeed: integer = 160
+  protected jumpStrength: integer = 160
 
   public constructor(scene, x, y) {
     super(scene, x, y)
@@ -45,10 +43,10 @@ export default class Player extends ComplexObject {
 
     if (!this.isAttacking) {
       if (this.cursors.left.isDown) {
-        this.body.setVelocityX(-160)
+        this.body.setVelocityX(this.moveSpeed * -1)
         this.sprite.anims.play("left", true)
       } else if (this.cursors.right.isDown) {
-        this.body.setVelocityX(160)
+        this.body.setVelocityX(this.moveSpeed)
         this.sprite.anims.play("right", true)
       } else {
         this.body.setVelocityX(0)
@@ -56,7 +54,7 @@ export default class Player extends ComplexObject {
       }
 
       if (this.cursors.up.isDown && this.body.touching.down) {
-        this.body.setVelocityY(-330)
+        this.body.setVelocityY(this.jumpStrength * -1)
       }
     }
   }
