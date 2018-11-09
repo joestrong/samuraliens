@@ -16,19 +16,13 @@ export default class Title extends Phaser.Scene {
     this.anims.create({
       frameRate: 20,
       frames: this.anims.generateFrameNumbers("samurai", { start: 0, end: 5 }),
-      key: "right",
+      key: "run",
       repeat: -1,
     })
     this.anims.create({
       frameRate: 20,
       frames: this.anims.generateFrameNumbers("samurai", { start: 5, end: 5 }),
-      key: "turn",
-    })
-    this.anims.create({
-      frameRate: 20,
-      frames: this.anims.generateFrameNumbers("samurai", { start: 6, end: 11 }),
-      key: "left",
-      repeat: -1,
+      key: "stand",
     })
     this.anims.create({
       frameRate: 20,
@@ -37,7 +31,7 @@ export default class Title extends Phaser.Scene {
     })
     this.anims.create({
       frameRate: 20,
-      frames: this.anims.generateFrameNumbers("samurai", { start: 6, end: 11 }),
+      frames: this.anims.generateFrameNumbers("samurai", { start: 0, end: 5 }),
       key: "hit",
     })
 

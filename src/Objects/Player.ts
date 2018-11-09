@@ -44,13 +44,15 @@ export default class Player extends ComplexObject {
     if (!this.isAttacking) {
       if (this.cursors.left.isDown) {
         this.body.setVelocityX(this.moveSpeed * -1)
-        this.sprite.anims.play("left", true)
+        this.sprite.setFlipX(true)
+        this.sprite.anims.play("run", true)
       } else if (this.cursors.right.isDown) {
         this.body.setVelocityX(this.moveSpeed)
-        this.sprite.anims.play("right", true)
+        this.sprite.setFlipX(false)
+        this.sprite.anims.play("run", true)
       } else {
         this.body.setVelocityX(0)
-        this.sprite.anims.play("turn", true)
+        this.sprite.anims.play("stand", true)
       }
 
       if (this.cursors.up.isDown && this.body.touching.down) {
