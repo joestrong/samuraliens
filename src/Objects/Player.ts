@@ -11,6 +11,10 @@ export default class Player extends ComplexObject {
   protected isAttacking: boolean = false
   protected moveSpeed: integer = 160
   protected jumpStrength: integer = 160
+  protected direction: { LEFT: integer, RIGHT: integer} = {
+      LEFT: 0,
+      RIGHT: 1,
+  }
 
   public constructor(scene, x, y) {
     super(scene, x, y)
@@ -44,11 +48,11 @@ export default class Player extends ComplexObject {
     if (!this.isAttacking) {
       if (this.cursors.left.isDown) {
         this.body.setVelocityX(this.moveSpeed * -1)
-        this.sprite.setFlipX(true)
+        this.faceDirection(this.direction.LEFT)
         this.sprite.anims.play("run", true)
       } else if (this.cursors.right.isDown) {
         this.body.setVelocityX(this.moveSpeed)
-        this.sprite.setFlipX(false)
+        this.faceDirection(this.direction.RIGHT)
         this.sprite.anims.play("run", true)
       } else {
         this.body.setVelocityX(0)
@@ -70,6 +74,20 @@ export default class Player extends ComplexObject {
   protected onAnimationComplete(animation, frame): void {
     if (animation.key === "attack") {
       this.isAttacking = false
+    }
+  }
+
+  protected faceDirection(direction: integer) {
+    if (direction === this.direction.LEFT) {
+      this.sprite.setFlipX(true)
+      this.attackZones.getChildren().forEach((zone: Zone) => {
+        zone.x = Math.abs(zone.x) * -1
+      }, this)
+    } else {
+      this.sprite.setFlipX(false)
+      this.attackZones.getChildren().forEach((zone: Zone) => {
+        zone.x = Math.abs(zone.x)
+      }, this)
     }
   }
 }
