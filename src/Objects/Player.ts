@@ -8,6 +8,7 @@ export default class Player extends ComplexObject {
   public attackZones: Phaser.Physics.Arcade.Group
   protected cursors: Phaser.Input.Keyboard.CursorKeys
   protected sprite: Phaser.GameObjects.Sprite
+  protected gi: Phaser.GameObjects.Sprite
   protected isAttacking: boolean = false
   protected moveSpeed: integer = 160
   protected jumpStrength: integer = 160
@@ -28,6 +29,9 @@ export default class Player extends ComplexObject {
     this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
 
+    this.gi = scene.add.sprite(0, 0, "gi")
+    this.add(this.gi)
+
     const attackZone = new Zone(scene, 26, 0, 20, 48)
     this.attackZones.add(attackZone)
     this.add(attackZone)
@@ -41,6 +45,7 @@ export default class Player extends ComplexObject {
   public preUpdate(): void {
     if (this.cursors.space.isDown && !this.isAttacking) {
       this.sprite.anims.play("attack", true)
+      this.gi.anims.play("gi_attack", true)
       this.body.setVelocityX(0)
       this.isAttacking = true
     }
@@ -50,13 +55,16 @@ export default class Player extends ComplexObject {
         this.body.setVelocityX(this.moveSpeed * -1)
         this.faceDirection(this.direction.LEFT)
         this.sprite.anims.play("run", true)
+        this.gi.anims.play("gi_run", true)
       } else if (this.cursors.right.isDown) {
         this.body.setVelocityX(this.moveSpeed)
         this.faceDirection(this.direction.RIGHT)
         this.sprite.anims.play("run", true)
+        this.gi.anims.play("gi_run", true)
       } else {
         this.body.setVelocityX(0)
         this.sprite.anims.play("stand", true)
+        this.gi.anims.play("gi_stand", true)
       }
 
       if (this.cursors.up.isDown && this.body.touching.down) {
@@ -80,11 +88,13 @@ export default class Player extends ComplexObject {
   protected faceDirection(direction: integer) {
     if (direction === this.direction.LEFT) {
       this.sprite.setFlipX(true)
+      this.gi.setFlipX(true)
       this.attackZones.getChildren().forEach((zone: Zone) => {
         zone.x = Math.abs(zone.x) * -1
       }, this)
     } else {
       this.sprite.setFlipX(false)
+      this.gi.setFlipX(false)
       this.attackZones.getChildren().forEach((zone: Zone) => {
         zone.x = Math.abs(zone.x)
       }, this)

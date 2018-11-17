@@ -8,11 +8,32 @@ export default class Title extends Phaser.Scene {
   public preload() {
     this.load.image("background", "assets/background.png")
     this.load.spritesheet("samurai", "assets/samurai.png", { frameWidth: 64, frameHeight: 64 })
+    this.load.spritesheet("gi", "assets/gi.png", { frameWidth: 64, frameHeight: 64 })
   }
 
   public create() {
     this.add.image(400, 300, "background")
 
+    this.initAnimations()
+
+    this.player = new Player(this, 152, 292)
+    this.add.existing(this.player)
+
+    const platforms = this.physics.add.staticGroup()
+    const zone = this.add.zone(400, 340, 800, 30)
+    platforms.add(zone)
+
+    const enemies = this.add.group()
+    const enemy = new Enemy(this, 600, 292)
+    enemies.add(enemy)
+    this.add.existing(enemy)
+
+    this.physics.add.collider(this.player, platforms)
+    this.physics.add.collider(enemies, platforms)
+    this.physics.add.overlap(this.player.attackZones, enemies, this.player.onAttackZoneOverlap, null, this.player)
+  }
+
+  protected initAnimations() {
     this.anims.create({
       frameRate: 20,
       frames: this.anims.generateFrameNumbers("samurai", { start: 0, end: 5 }),
@@ -35,20 +56,26 @@ export default class Title extends Phaser.Scene {
       key: "hit",
     })
 
-    this.player = new Player(this, 152, 292)
-    this.add.existing(this.player)
-
-    const platforms = this.physics.add.staticGroup()
-    const zone = this.add.zone(400, 340, 800, 30)
-    platforms.add(zone)
-
-    const enemies = this.add.group()
-    const enemy = new Enemy(this, 600, 292)
-    enemies.add(enemy)
-    this.add.existing(enemy)
-
-    this.physics.add.collider(this.player, platforms)
-    this.physics.add.collider(enemies, platforms)
-    this.physics.add.overlap(this.player.attackZones, enemies, this.player.onAttackZoneOverlap, null, this.player)
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("gi", { start: 0, end: 5 }),
+      key: "gi_run",
+      repeat: -1,
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("gi", { start: 5, end: 5 }),
+      key: "gi_stand",
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("gi", { start: 0, end: 5 }),
+      key: "gi_attack",
+    })
+    this.anims.create({
+      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("gi", { start: 0, end: 5 }),
+      key: "gi_hit",
+    })
   }
 }

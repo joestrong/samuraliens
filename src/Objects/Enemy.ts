@@ -4,6 +4,7 @@ import ComplexObject from "./ComplexObject.ts"
 export default class Player extends ComplexObject {
   public body: Phaser.Physics.Arcade.Body
   protected sprite: Phaser.GameObjects.Sprite
+  protected gi: Phaser.GameObjects.Sprite
   protected beenHit: boolean = false
 
   public constructor(scene, x, y) {
@@ -12,6 +13,10 @@ export default class Player extends ComplexObject {
     this.sprite = scene.add.sprite(0, 0, "samurai")
     this.sprite.on("animationcomplete", this.onAnimationComplete, this)
     this.add(this.sprite)
+
+    this.gi = scene.add.sprite(0, 0, "gi")
+    this.gi.setTint(0x000000, 0x000000, 0x000000, 0x000000)
+    this.add(this.gi)
 
     this.setSize(32, 48)
     scene.physics.world.enableBody(this)
@@ -27,6 +32,7 @@ export default class Player extends ComplexObject {
     this.beenHit = true
     this.body.setVelocityY(-330)
     this.sprite.anims.play("hit")
+    this.gi.anims.play("gi_hit")
   }
 
   protected onAnimationComplete(animation, frame): void {
